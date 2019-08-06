@@ -1,13 +1,6 @@
 # vimrc
-My vim deployment for Python and Stan development
+My vim deployment for Python and Stan development on AWS
 
-1. run vim with -u .vimrc from this repo (often renamed if it's a shared user on a VM)
-2. :PluginInstall
-3. exit vim
-4. Get make tools. On AWS, `sudo yum install cmake`
-5. compile YouCompleteMe: 
-```
-cd ~/.vim/bundle/YouCompleteMe
-python3 install.py
-```
-6. Bob is uncle.
+1. clone this repo
+2. run setup_cluster.sh
+3. Bob is uncle.

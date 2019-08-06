@@ -17,15 +17,10 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'nvie/vim-flake8'
-Plugin 'jnurmine/Zenburn'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'tpope/vim-fugitive'
-Plugin 'yuttie/comfortable-motion.vim'      " Smooth scrolling
 Plugin 'thaerkh/vim-indentguides'           " Visual representation of indents
-Plugin 'nightsense/carbonized' 		" Colorscheme
+Plugin 'ctrlpvim/ctrlp.vim'  " Fuzzy searching
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -140,8 +135,10 @@ nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impu
 "=====================================================
 
 "YouCompleteMe customizations
+" Note <leader>d would be error diagnostics in C-family, which is awesome, but not available in python
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <leader>d  :YcmCompleter GetDoc<CR>
 
 
 "Highlighting
@@ -149,14 +146,12 @@ let python_highlight_all=1
 syntax on
 
 "Colorscheme
-if has('gui_running')
-	colorscheme darkblue
-else
-	colorscheme zenburn
-endif
+colorscheme elflord
 
-"nerdtree
-let NERDTreeIgnore=['\.pyc$', '\~$'] 
+"ctrl p
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 "line numbers
 set nu
