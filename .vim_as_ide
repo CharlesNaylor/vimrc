@@ -12,15 +12,14 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
-Plugin 'vim-scripts/indentpython.vim' "Autoindent
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/syntastic'
-Plugin 'nvie/vim-flake8'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'vim-syntastic/syntastic'
+Plugin 'fisadev/vim-isort' 	" sort python imports
 Plugin 'tpope/vim-fugitive'
 Plugin 'thaerkh/vim-indentguides'           " Visual representation of indents
 Plugin 'ctrlpvim/ctrlp.vim'  " Fuzzy searching
+Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -38,7 +37,7 @@ au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
-    \ set textwidth=79 |
+    \ set textwidth=99 |
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix 
@@ -119,20 +118,6 @@ nnoremap <F4> :set relativenumber!<CR>
 "=====================================================
 set incsearch	                            " incremental search
 set hlsearch	                            " highlight search results
-
-"=====================================================
-"" Comfortable Motion Settings
-"=====================================================
-let g:comfortable_motion_scroll_down_key = "j"
-let g:comfortable_motion_scroll_up_key = "k"
-let g:comfortable_motion_no_default_key_mappings = 1
-let g:comfortable_motion_impulse_multiplier = 25  " Feel free to increase/decrease this value.
-nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
-nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
-nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
-nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
-
-"=====================================================
 
 "YouCompleteMe customizations
 " Note <leader>d would be error diagnostics in C-family, which is awesome, but not available in python
