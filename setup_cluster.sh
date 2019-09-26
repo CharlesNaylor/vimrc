@@ -8,9 +8,6 @@ wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-com
 echo "source ~/git-completion.bash" >> .bashrc
 source ~/git-completion.bash
 
-#tmux
-sudo yum install tmux
-
 # bash additions
 echo "alias ide='vim -u ~/.vim_as_ide'
 # avoid duplicates..
@@ -23,6 +20,11 @@ export PROMPT_COMMAND='history -a; history -c; history -r; $PROMPT_COMMAND' " >>
 # Install VIM plugins
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim -u ~/.vim_as_ide +PluginInstall +qall
-sudo yum install cmake
+sudo apt install cmake
 cd ~/.vim/bundle/YouCompleteMe
 python install.py
+
+# config flake8
+mkdir ~/.config
+echo "[flake8]
+max-line-length = 99" >> ~/.config/flake8
