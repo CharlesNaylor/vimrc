@@ -15,10 +15,14 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-syntastic/syntastic'
-Plugin 'fisadev/vim-isort' 	" sort python imports
-Plugin 'tpope/vim-fugitive'
-Plugin 'thaerkh/vim-indentguides'           " Visual representation of indents
-Plugin 'ctrlpvim/ctrlp.vim'  " Fuzzy searching
+Plugin 'fisadev/vim-isort' 		" sort python imports
+Plugin 'tpope/vim-fugitive'		" git
+Plugin 'eigenfoo/stan-vim' 		" Stan stuff
+Plugin 'airblade/vim-gitgutter'  	" show changes
+Plugin 'thaerkh/vim-indentguides'       " Visual representation of indents
+Plugin 'Vimjas/vim-python-pep8-indent'  " Python indenting
+Plugin 'ctrlpvim/ctrlp.vim'  		" Fuzzy searching
+Plugin 'ap/vim-buftabline'		" show open buffers as if they were tabs
 Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 " All of your Plugins must be added before the following line
@@ -43,15 +47,15 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix 
 
 "Stan indentation
-au BufNewFile,BufRead *.stan
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix |
-    \ set syntax=stan
+"au BufNewFile,BufRead *.stan
+"    \ set tabstop=4 |
+"    \ set softtabstop=4 |
+"    \ set shiftwidth=4 |
+"    \ set textwidth=79 |
+"    \ set expandtab |
+"    \ set autoindent |
+"    \ set fileformat=unix |
+"    \ set syntax=stan
 "
 "markdown indentation
 au BufNewFile,BufRead *.*md
@@ -137,6 +141,9 @@ colorscheme elflord
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" isort
+let g:vim_isort_map = '<C-i>'
 
 "line numbers
 set nu
