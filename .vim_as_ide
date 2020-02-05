@@ -1,6 +1,10 @@
 set nocompatible              " required
 filetype off                  " required
 
+" recursive search path
+set path+=**
+set wildmenu
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -21,7 +25,6 @@ Plugin 'eigenfoo/stan-vim' 		" Stan stuff
 Plugin 'airblade/vim-gitgutter'  	" show changes
 Plugin 'thaerkh/vim-indentguides'       " Visual representation of indents
 Plugin 'Vimjas/vim-python-pep8-indent'  " Python indenting
-Plugin 'ctrlpvim/ctrlp.vim'  		" Fuzzy searching
 Plugin 'ap/vim-buftabline'		" show open buffers as if they were tabs
 Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
@@ -123,6 +126,10 @@ nnoremap <F4> :set relativenumber!<CR>
 set incsearch	                            " incremental search
 set hlsearch	                            " highlight search results
 
+"" Set wildignore for vimgrep and find
+set wildignore+=**/venv/**
+set wildignore+=*.pyc
+
 "YouCompleteMe customizations
 " Note <leader>d would be error diagnostics in C-family, which is awesome, but not available in python
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -136,11 +143,6 @@ syntax on
 
 "Colorscheme
 colorscheme elflord
-
-"ctrl p
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " isort
 let g:vim_isort_map = '<C-i>'
