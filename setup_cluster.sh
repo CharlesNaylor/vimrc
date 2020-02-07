@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cp .vim_as_ide ~/
+ln .vim_as_ide ~/.vim_as_ide
 cd ~/
 
 # git config
@@ -9,7 +9,7 @@ echo "source ~/git-completion.bash" >> .bashrc
 source ~/git-completion.bash
 
 # bash additions
-echo "alias ide='vim -u ~/.vim_as_ide'
+echo "alias ide='vim -u ~/.vim_as_ide .'
 # avoid duplicates..
 export HISTCONTROL=ignoredups:erasedups
 # append history entries..
