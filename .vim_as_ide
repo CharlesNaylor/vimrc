@@ -129,6 +129,9 @@ set hlsearch	                            " highlight search results
 "" Set wildignore for vimgrep and find
 set wildignore+=**/venv/**
 set wildignore+=*.pyc
+set wildignore+=*.parquet
+set wildignore+=*.pickle
+set wildignore+=*.pkl
 
 "YouCompleteMe customizations
 " Note <leader>d would be error diagnostics in C-family, which is awesome, but not available in python
