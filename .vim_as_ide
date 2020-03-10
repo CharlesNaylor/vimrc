@@ -45,6 +45,16 @@ au BufNewFile,BufRead *.py
     \ set autoindent |
     \ set fileformat=unix 
 
+"SQL Indentation
+au BufNewFile,BufRead *.sql
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=99 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix 
+
 "Stan indentation
 "au BufNewFile,BufRead *.stan
 "    \ set tabstop=4 |
@@ -123,6 +133,7 @@ set hlsearch	                            " highlight search results
 
 "" Set wildignore for vimgrep and find
 set wildignore+=**/venv/**
+set wildignore+=**/bin/**
 set wildignore+=*.pyc
 set wildignore+=*.parquet
 set wildignore+=*.pickle
@@ -146,37 +157,36 @@ set nu
 " plugin version: https://github.com/maxboisvert/vim-simple-complete
 "=====================================================
 
-" Minimalist-TabComplete-Plugin
-inoremap <expr> <Tab> TabComplete()
-fun! TabComplete()
-    if getline('.')[col('.') - 2] =~ '\K' || pumvisible()
-        return "\<C-P>"
-    else
-        return "\<Tab>"
-    endif
-endfun
-
-" Minimalist-AutoCompletePop-Plugin
-set completeopt=menu,menuone,noinsert
-inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
-autocmd InsertCharPre * call AutoComplete()
-fun! AutoComplete()
-    if v:char =~ '\K'
-        \ && getline('.')[col('.') - 4] !~ '\K'
-        \ && getline('.')[col('.') - 3] =~ '\K'
-        \ && getline('.')[col('.') - 2] =~ '\K' " last char
-        \ && getline('.')[col('.') - 1] !~ '\K'
-
-        call feedkeys("\<C-P>", 'n')
-    end
-endfun
+"" Minimalist-TabComplete-Plugin
+"inoremap <expr> <Tab> TabComplete()
+"fun! TabComplete()
+"    if getline('.')[col('.') - 2] =~ '\K' || pumvisible()
+"        return "\<C-P>"
+"    else
+"        return "\<Tab>"
+"    endif
+"endfun
+"
+"" Minimalist-AutoCompletePop-Plugin
+"set completeopt=menu,menuone,noinsert
+"inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+"autocmd InsertCharPre * call AutoComplete()
+"fun! AutoComplete()
+"    if v:char =~ '\K'
+"        \ && getline('.')[col('.') - 4] !~ '\K'
+"        \ && getline('.')[col('.') - 3] =~ '\K'
+"        \ && getline('.')[col('.') - 2] =~ '\K' " last char
+"        \ && getline('.')[col('.') - 1] !~ '\K'
+"
+"        call feedkeys("\<C-P>", 'n')
+"    end
+"endfun
+"
+" get a local tagfile
+set tags=tags
 
 "=====================================================
 " Linting
 "=====================================================
-augroup Linting
-	autocmd!
-	autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
-	autocmd BufWritePost *.py silent make! <afile> | silent redraw!
-	autocmd QuickFixCmdPost [^l]* cwindow
-augroup END
+autocmd FileType python let &makeprg='$(which pylint3) %'
+
