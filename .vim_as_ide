@@ -16,13 +16,10 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
-Plugin 'fisadev/vim-isort' 		" sort python imports
 Plugin 'tpope/vim-fugitive'		" git
 Plugin 'eigenfoo/stan-vim' 		" Stan stuff
 Plugin 'airblade/vim-gitgutter'  	" show changes
-Plugin 'thaerkh/vim-indentguides'       " Visual representation of indents
 Plugin 'Vimjas/vim-python-pep8-indent'  " Python indenting
-Plugin 'ap/vim-buftabline'		" show open buffers as if they were tabs
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
