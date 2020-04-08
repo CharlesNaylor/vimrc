@@ -16,17 +16,11 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'fisadev/vim-isort' 		" sort python imports
 Plugin 'tpope/vim-fugitive'		" git
 Plugin 'eigenfoo/stan-vim' 		" Stan stuff
 Plugin 'airblade/vim-gitgutter'  	" show changes
-Plugin 'thaerkh/vim-indentguides'       " Visual representation of indents
 Plugin 'Vimjas/vim-python-pep8-indent'  " Python indenting
-Plugin 'ap/vim-buftabline'		" show open buffers as if they were tabs
-Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'psf/black'			" Python formatting
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -39,8 +33,43 @@ set foldmethod=indent
 set foldlevel=99
 nnoremap <space> za
 
+"Statusline (cf. https://shapeshed.com/vim-statuslines/)
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%{StatuslineGit()}
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m\ 
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+
+
 "PEP8 Indentation
 au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=99 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix 
+
+"SQL Indentation
+au BufNewFile,BufRead *.sql
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
@@ -89,7 +118,6 @@ set switchbuf=useopen
 set laststatus=2
 nmap <F9> :bprev<CR>
 nmap <F10> :bnext<CR>
-nmap <silent> <leader>q :SyntasticCheck # <CR> :bp <BAR> bd #<CR>
 
 "=====================================================
 "" Convert formats with Pandoc
@@ -128,17 +156,11 @@ set hlsearch	                            " highlight search results
 
 "" Set wildignore for vimgrep and find
 set wildignore+=**/venv/**
+set wildignore+=**/bin/**
 set wildignore+=*.pyc
 set wildignore+=*.parquet
 set wildignore+=*.pickle
 set wildignore+=*.pkl
-
-"YouCompleteMe customizations
-" Note <leader>d would be error diagnostics in C-family, which is awesome, but not available in python
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-map <leader>d  :YcmCompleter GetDoc<CR>
-
 
 "Highlighting
 let python_highlight_all=1
@@ -152,3 +174,45 @@ let g:vim_isort_map = '<C-i>'
 
 "line numbers
 set nu
+
+"=====================================================
+" maxboisvert's minimalist autocomplete
+" plugin version: https://github.com/maxboisvert/vim-simple-complete
+"=====================================================
+
+"" Minimalist-TabComplete-Plugin
+"inoremap <expr> <Tab> TabComplete()
+"fun! TabComplete()
+"    if getline('.')[col('.') - 2] =~ '\K' || pumvisible()
+"        return "\<C-P>"
+"    else
+"        return "\<Tab>"
+"    endif
+"endfun
+"
+"" Minimalist-AutoCompletePop-Plugin
+"set completeopt=menu,menuone,noinsert
+"inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+"autocmd InsertCharPre * call AutoComplete()
+"fun! AutoComplete()
+"    if v:char =~ '\K'
+"        \ && getline('.')[col('.') - 4] !~ '\K'
+"        \ && getline('.')[col('.') - 3] =~ '\K'
+"        \ && getline('.')[col('.') - 2] =~ '\K' " last char
+"        \ && getline('.')[col('.') - 1] !~ '\K'
+"
+"        call feedkeys("\<C-P>", 'n')
+"    end
+"endfun
+"
+" get a local tagfile
+set tags=tags
+
+"=====================================================
+" Linting
+"=====================================================
+autocmd FileType python let &makeprg='$(which pylint3) %'
+
+" execute Black on write
+autocmd BufWritePre *.py execute ':Black'
+
