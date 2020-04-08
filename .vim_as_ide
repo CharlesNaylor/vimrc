@@ -20,6 +20,7 @@ Plugin 'tpope/vim-fugitive'		" git
 Plugin 'eigenfoo/stan-vim' 		" Stan stuff
 Plugin 'airblade/vim-gitgutter'  	" show changes
 Plugin 'Vimjas/vim-python-pep8-indent'  " Python indenting
+Plugin 'psf/black'			" Python formatting
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -47,7 +48,7 @@ set statusline+=%#PmenuSel#
 set statusline+=%{StatuslineGit()}
 set statusline+=%#LineNr#
 set statusline+=\ %f
-set statusline+=%m\
+set statusline+=%m\ 
 set statusline+=%=
 set statusline+=%#CursorColumn#
 set statusline+=\ %y
@@ -55,7 +56,6 @@ set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
 set statusline+=\[%{&fileformat}\]
 set statusline+=\ %p%%
 set statusline+=\ %l:%c
-set statusline+=\ 
 
 
 "PEP8 Indentation
@@ -212,4 +212,7 @@ set tags=tags
 " Linting
 "=====================================================
 autocmd FileType python let &makeprg='$(which pylint3) %'
+
+" execute Black on write
+autocmd BufWritePre *.py execute ':Black'
 
