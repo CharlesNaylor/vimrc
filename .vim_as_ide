@@ -211,7 +211,7 @@ set tags=tags
 "=====================================================
 " Linting
 "=====================================================
-autocmd FileType python let &makeprg='$(which pylint) --reports=n\ --output-format=parseable\ %:p'
+autocmd FileType python let &makeprg='$(which pylint) --reports=n --output-format=parseable %:p'
 set errorformat=%f:%l:\ %m
 
 " execute Black on write
