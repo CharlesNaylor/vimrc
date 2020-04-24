@@ -24,7 +24,7 @@ chmod -R a+x ~/.git_template/hooks
 
 # bash additions
 echo "
-alias ide='vim -u ~/.vim_as_ide .'
+alias ide='vim -u ~/.vim_as_ide'
 # avoid duplicates..
 export HISTCONTROL=ignoredups:erasedups
 # append history entries..
