@@ -22,9 +22,6 @@ cp ~/.git_template/hooks/post-commit ~/.git_template/hooks/post-merge
 cp ~/.git_template/hooks/post-commit ~/.git_template/hooks/post-checkout
 chmod -R a+x ~/.git_template/hooks
 
-
-
-
 # bash additions
 echo "
 alias ide='vim -u ~/.vim_as_ide .'
@@ -35,6 +32,10 @@ shopt -s histappend
 # After each command, save and reload history
 export PROMPT_COMMAND='history -a; history -c; history -r; $PROMPT_COMMAND'
 " >> ~/.bashrc
+
+# Tmux conf
+sudo apt install tmux
+echo "setw -g mode-keys vi" >> ~/.tmux.conf
 
 # Install VIM plugins
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
