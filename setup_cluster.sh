@@ -41,7 +41,8 @@ echo "setw -g mode-keys vi" >> ~/.tmux.conf
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim -u ~/.vim_as_ide +PluginInstall +qall
 
-# config flake8
-mkdir ~/.config
-echo "[flake8]
-max-line-length = 99" >> ~/.config/flake8
+# Config pylint
+# Ignore C0330 as Black is now handling it
+echo "
+[MESSAGES CONTROL]
+disable=C0330" >> ~/.pylintrc
