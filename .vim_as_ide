@@ -211,7 +211,8 @@ set tags=tags
 "=====================================================
 " Linting
 "=====================================================
-autocmd FileType python let &makeprg='$(which pylint3) %'
+autocmd FileType python let &makeprg='$(which pylint) --reports=n\ --output-format=parseable\ %:p'
+set errorformat=%f:%l:\ %m
 
 " execute Black on write
 autocmd BufWritePre *.py execute ':Black'
