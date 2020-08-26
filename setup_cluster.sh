@@ -9,7 +9,7 @@ echo "source ~/git-completion.bash" >> .bashrc
 source ~/git-completion.bash
 
 # Add git hooks for Ctags config, cf. tbaggery.com/2011/08/08/effortless-ctags-with-git.html
-sudo apt install universal-ctags
+sudo snap install universal-ctags
 mkdir -p ~/.git_template/hooks
 git config --global init.templatedir '~/.git_template'
 cp ctags ~/.git_template/hooks
@@ -27,14 +27,9 @@ echo "
 alias ide='vim -u ~/.vim_as_ide'
 # avoid duplicates..
 export HISTCONTROL=ignoredups:erasedups
-# append history entries..
-shopt -s histappend
-# After each command, save and reload history
-export PROMPT_COMMAND='history -a; history -c; history -r; $PROMPT_COMMAND'
 " >> ~/.bashrc
 
 # Tmux conf
-sudo apt install tmux
 echo "setw -g mode-keys vi" >> ~/.tmux.conf
 
 # Install VIM plugins
