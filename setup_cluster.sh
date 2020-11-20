@@ -8,6 +8,9 @@ wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-com
 echo "source ~/git-completion.bash" >> .bashrc
 source ~/git-completion.bash
 
+# enable conflict resolution recording
+git config --global rerere.enabled true
+
 # Add git hooks for Ctags config, cf. tbaggery.com/2011/08/08/effortless-ctags-with-git.html
 sudo apt install universal-ctags
 mkdir -p ~/.git_template/hooks

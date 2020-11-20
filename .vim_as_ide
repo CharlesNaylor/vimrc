@@ -63,10 +63,11 @@ au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
-    \ set textwidth=99 |
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix 
+" remove textwidth since we expect to run Black on every :w
+"   \ set textwidth=99 |
 
 "SQL Indentation
 au BufNewFile,BufRead *.sql
@@ -155,12 +156,16 @@ set incsearch	                            " incremental search
 set hlsearch	                            " highlight search results
 
 "" Set wildignore for vimgrep and find
-set wildignore+=**/venv/**
 set wildignore+=**/bin/**
+set wildignore+=**/build/**
+set wildignore+=**/dist/**
+set wildignore+=**/doc/**
+set wildignore+=**/venv/**
 set wildignore+=*.pyc
 set wildignore+=*.parquet
 set wildignore+=*.pickle
 set wildignore+=*.pkl
+set wildignore+=*.npz
 
 "Highlighting
 let python_highlight_all=1
@@ -175,36 +180,6 @@ let g:vim_isort_map = '<C-i>'
 "line numbers
 set nu
 
-"=====================================================
-" maxboisvert's minimalist autocomplete
-" plugin version: https://github.com/maxboisvert/vim-simple-complete
-"=====================================================
-
-"" Minimalist-TabComplete-Plugin
-"inoremap <expr> <Tab> TabComplete()
-"fun! TabComplete()
-"    if getline('.')[col('.') - 2] =~ '\K' || pumvisible()
-"        return "\<C-P>"
-"    else
-"        return "\<Tab>"
-"    endif
-"endfun
-"
-"" Minimalist-AutoCompletePop-Plugin
-"set completeopt=menu,menuone,noinsert
-"inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
-"autocmd InsertCharPre * call AutoComplete()
-"fun! AutoComplete()
-"    if v:char =~ '\K'
-"        \ && getline('.')[col('.') - 4] !~ '\K'
-"        \ && getline('.')[col('.') - 3] =~ '\K'
-"        \ && getline('.')[col('.') - 2] =~ '\K' " last char
-"        \ && getline('.')[col('.') - 1] !~ '\K'
-"
-"        call feedkeys("\<C-P>", 'n')
-"    end
-"endfun
-"
 " get a local tagfile
 set tags=tags
 
@@ -216,4 +191,3 @@ set errorformat=%f:%l:\ %m
 
 " execute Black on write
 autocmd BufWritePre *.py execute ':Black'
-
