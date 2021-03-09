@@ -12,7 +12,7 @@ source ~/git-completion.bash
 git config --global rerere.enabled true
 
 # Add git hooks for Ctags config, cf. tbaggery.com/2011/08/08/effortless-ctags-with-git.html
-sudo snap install universal-ctags
+#sudo snap install universal-ctags
 mkdir -p ~/.git_template/hooks
 git config --global init.templatedir '~/.git_template'
 cp ctags ~/.git_template/hooks
@@ -28,6 +28,7 @@ chmod -R a+x ~/.git_template/hooks
 # bash additions
 echo "
 alias ide='vim -u ~/.vim_as_ide'
+alias ide_git=\"/usr/local/bin/vim -u ~/.vim_as_ide $(git status --porcelain | awk '{print $2}')\"
 # avoid duplicates..
 export HISTCONTROL=ignoredups:erasedups
 " >> ~/.bashrc
