@@ -28,7 +28,7 @@ chmod -R a+x ~/.git_template/hooks
 # bash additions
 echo "
 alias ide='vim -u ~/.vim_as_ide'
-alias ide_git=\"/usr/local/bin/vim -u ~/.vim_as_ide $(git status --porcelain | awk '{print $2}')\"
+alias ide_git=\"/usr/local/bin/vim -u ~/.vim_as_ide -o $(git status --porcelain | awk '{print $2}')\"
 # avoid duplicates..
 export HISTCONTROL=ignoredups:erasedups
 " >> ~/.bashrc
