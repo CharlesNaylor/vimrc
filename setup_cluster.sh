@@ -34,7 +34,24 @@ export HISTCONTROL=ignoredups:erasedups
 " >> ~/.bashrc
 
 # Tmux conf
-echo "setw -g mode-keys vi" >> ~/.tmux.conf
+brew install reattach-to-user-namespace
+echo "
+# Copy-paste integration
+set-option -g default-command 'reattach-to-user-namespace -l bash'
+
+# Use vim keybindings in copy mode
+setw -g mode-keys vi
+
+# Setup 'v' to begin selection as in Vim
+bind-key -t vi-copy v begin-selection
+bind-key -t vi-copy y copy-pipe 'reattach-to-user-namespace pbcopy'
+
+# Update default binding of `Enter` to also use copy-pipe
+unbind -t vi-copy Enter
+bind-key -t vi-copy Enter copy-pipe 'reattach-to-user-namespace pbcopy'
+
+# Bind ']' to use pbpaste
+bind ] run 'reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer'" >> ~/.tmux.conf
 
 # Install VIM plugins
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -45,3 +62,4 @@ vim -u ~/.vim_as_ide +PluginInstall +qall
 echo "
 [MESSAGES CONTROL]
 disable=C0330" >> ~/.pylintrc
+
