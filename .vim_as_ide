@@ -6,6 +6,7 @@ set path+=**
 set wildmenu
 
 " set the runtime path to include Vundle and initialize
+let g:vundle_default_git_proto = 'git'  " WSL2 on VPN doesn't like https
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -186,8 +187,9 @@ set tags=tags
 "=====================================================
 " Linting
 "=====================================================
-autocmd FileType python let &makeprg='$(which pylint) --reports=n --output-format=parseable %:p'
+autocmd FileType python let &makeprg='$(which pylint) --reports=N --output-format=parseable %:p'
 set errorformat=%f:%l:\ %m
+command MakeAll cexpr system('pylint $(git ls-files "*.py") --reports=N --output-format=parseable')
 
 " execute Black on write
 autocmd BufWritePre *.py execute ':Black'
