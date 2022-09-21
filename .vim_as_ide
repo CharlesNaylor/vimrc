@@ -184,6 +184,9 @@ set nu
 " get a local tagfile
 set tags=tags
 
+" netrw better vertical split
+let g:netrw_altv=1
+
 "=====================================================
 " Linting
 "=====================================================
