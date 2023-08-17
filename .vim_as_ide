@@ -1,13 +1,8 @@
 set nocompatible              " required
 filetype off                  " required
 
-" recursive search path
-set path+=**
-set wildmenu
-set wildignore+=**/venv/**
-
 " set the runtime path to include Vundle and initialize
-let g:vundle_default_git_proto = 'git'  " WSL2 on VPN doesn't like https
+let g:vundle_default_git_proto = 'https'  " WSL2 on VPN doesn't like https
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -157,9 +152,14 @@ nnoremap <F4> :set relativenumber!<CR>
 set incsearch	                            " incremental search
 set hlsearch	                            " highlight search results
 
+" recursive search path
+set path+=**
+set wildmenu
+
 "" Set wildignore for vimgrep and find
 set wildignore+=**/bin/**
 set wildignore+=**/build/**
+set wildignore+=**/data/**
 set wildignore+=**/dist/**
 set wildignore+=**/doc/**
 set wildignore+=**/venv/**
@@ -185,15 +185,18 @@ set nu
 " get a local tagfile
 set tags=tags
 
+" permit local .vimrc
+set exrc
+
 " netrw better vertical split
 let g:netrw_altv=1
 
 "=====================================================
 " Linting
 "=====================================================
-autocmd FileType python let &makeprg='$(which pylint) --reports=n --msg-template="{path}:{line}: {msg_id} {symbol}, {obj} {msg}" %:p'
+autocmd FileType python let &makeprg='$(which pylint) --reports=n --msg-template="{path}:{line}: {msg_id} {symbol}, {obj} {msg}" %'
 set errorformat=%f:%l:\ %m
-command MakeAll cexpr system('pylint $(git ls-files "*.py") --reports=N --msg-template="{path}:{line}: {msg_id} {symbol}, {obj} {msg}" %:p')
+command MakeAll cexpr system('pylint $(git ls-files "*.py") --reports=N --msg-template="{path}:{line}: {msg_id} {symbol}, {obj} {msg}"')
 
 " execute Black on write
 autocmd BufWritePre *.py execute ':Black'
