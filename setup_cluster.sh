@@ -4,9 +4,12 @@ ln .vim_as_ide ~/.vim_as_ide
 cd ~/
 
 # git config
-wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
-echo "source ~/git-completion.bash" >> .bashrc
-source ~/git-completion.bash
+if [ -n "$ZSH_VERSION" ]; then
+	echo 'autoload -Uz compinit && compinit' >> ~/.zshrc && . ~/.zshrc
+else
+	wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+	echo "source ~/git-completion.bash" >> .bashrc
+	source ~/git-completion.bash
 
 # enable conflict resolution recording
 git config --global rerere.enabled true
